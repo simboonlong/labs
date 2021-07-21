@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content="A playground for experiments." />
+    <meta name="description" content="Playground for web experiments." />
     <meta name="author" content="Sim Boon Long" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Experiments</title>
+    <title>Experiments - Gamepad API</title>
     <link
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
@@ -79,6 +79,12 @@
   </head>
   <body class="overflow-hidden bg-gray-900">
     <div class="bg absolute top-0 left-0 w-full h-full"></div>
+    <div
+      class="absolute top-2 right-2 text-white text-right max-w-xs"
+      id="detect"
+    >
+      Gamepad not detected.
+    </div>
     <div class="relative">
       <div class="ryu"></div>
     </div>
@@ -87,143 +93,6 @@
         <source src="./../assets/sfx/guile-theme.mp4" type="audio/mp4" />
       </audio>
     </div>
-    <script>
-      class Character {
-        constructor(character) {
-          this.character = character;
-          this.actionHandler;
-          this.isAction;
-        }
-
-        restart() {
-          // https://www.charistheo.io/blog/2021/02/restart-a-css-animation-with-javascript/
-          this.idle();
-          this.character.classList.add("restart");
-          this.character.offsetWidth; // trigger reflow
-          this.character.classList.remove("restart");
-        }
-
-        punch() {
-          this.isAction = true;
-          this.restart();
-          this.character.classList.add("punch");
-          clearTimeout(this.actionHandler);
-          this.actionHandler = setTimeout(() => {
-            this.character.classList.remove("punch");
-            this.isAction = false;
-          }, 200);
-        }
-
-        kick() {
-          this.isAction = true;
-          this.restart();
-          this.character.classList.add("kick");
-          clearTimeout(this.actionHandler);
-          this.actionHandler = setTimeout(() => {
-            this.character.classList.remove("kick");
-            this.isAction = false;
-          }, 700);
-        }
-
-        crouch() {
-          this.character.classList.add("crouch");
-        }
-
-        forward(x) {
-          this.character.classList.add("forward");
-          this.character.style.transform = `translateX(${(
-            this.character.getBoundingClientRect().left +
-            x * RATE
-          ).toFixed(0)}px)`;
-        }
-
-        backward(x) {
-          this.character.classList.add("backward");
-          this.character.style.transform = `translateX(${(
-            this.character.getBoundingClientRect().left +
-            x * RATE
-          ).toFixed(0)}px)`;
-        }
-
-        idle() {
-          this.character.classList.remove("punch");
-          this.character.classList.remove("crouch");
-          this.character.classList.remove("forward");
-          this.character.classList.remove("backward");
-        }
-      }
-
-      const CONTROLLER = {
-        SWITCH: "Joy-Con (L) (STANDARD GAMEPAD Vendor: 057e Product: 2006)",
-        PS3: "PLAYSTATION(R)3 Controller (STANDARD GAMEPAD Vendor: 054c Product: 0268)",
-      }; // controllers should be managed
-
-      const BUTTON_MAP = {
-        DOWN: 0,
-        RIGHT: 1,
-        LEFT: 2,
-        UP: 3,
-        L1: 4,
-        R1: 5,
-        ZL: 6,
-        PAUSE: 9,
-        CAPTURE: 16,
-      }; // hardcoded mapping to joycon left controller
-
-      const RATE = 7;
-      const THRESHOLD = 0.2;
-      const Ryu = new Character(document.querySelector(".ryu"));
-
-      let isConnected = false;
-      let ticker;
-
-      const PlayerA = () => {
-        const controller = navigator.getGamepads()[0];
-        const x = controller.axes[0];
-        const y = controller.axes[1];
-
-        if (Ryu.isAction) return;
-
-        if (x === 0 && y === 0) {
-          Ryu.idle();
-        }
-
-        if (controller.buttons[BUTTON_MAP.RIGHT].pressed) {
-          Ryu.punch();
-        }
-
-        if (controller.buttons[BUTTON_MAP.UP].pressed) {
-          Ryu.kick();
-        }
-
-        if (y > THRESHOLD) {
-          Ryu.crouch();
-        }
-
-        if (x > THRESHOLD) {
-          Ryu.backward(x);
-        }
-
-        if (x < -THRESHOLD) {
-          Ryu.forward(x);
-        }
-      };
-
-      const tick = (timestamp) => {
-        PlayerA();
-        ticker = requestAnimationFrame(tick);
-      };
-
-      const onGamepadConnect = (e) => {
-        // console.log(navigator.getGamepads()[0]);
-        ticker = requestAnimationFrame(tick);
-      };
-
-      window.addEventListener("gamepadconnected", onGamepadConnect, {
-        once: true,
-      });
-
-      document.querySelector("audio").volume = 0.2;
-    </script>
+    <script src="main.js" type="module"></script>
   </body>
 </html>
