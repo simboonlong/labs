@@ -11,10 +11,18 @@ export const BUTTON_MAP = {
   PAUSE: 9,
   CAPTURE: 16,
 }; // hardcoded mapping to joycon left controller
-export const EASING = 0.25;
-export const JUMP = 500;
+export const JUMP_DURATION = 500;
 
 export const CONTROLLER = {
   SWITCH: "Joy-Con (L) (STANDARD GAMEPAD Vendor: 057e Product: 2006)",
   PS3: "PLAYSTATION(R)3 Controller (STANDARD GAMEPAD Vendor: 054c Product: 0268)",
 }; // TODO: controller types should be managed
+
+export const getTranslate = (element) => {
+  const style = window.getComputedStyle(element);
+  const matrix = new DOMMatrixReadOnly(style.transform);
+  return {
+    x: matrix.m41,
+    y: matrix.m42,
+  };
+};

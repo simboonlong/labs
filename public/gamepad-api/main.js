@@ -10,9 +10,18 @@ const draw = (gamepad, character) => {
 
   const x = gamepad.axes[0];
   const y = gamepad.axes[1];
-  // const vy = (JUMP - character.el.getBoundingClientRect().top) * EASING;
 
-  if (character.isAction) return;
+  if (character.isAttack && !character.isJumping) return;
+
+  if (x > THRESHOLD) {
+    character.backward(x);
+  }
+
+  if (x < -THRESHOLD) {
+    character.forward(x);
+  }
+
+  if (character.isAttack || character.isJumping) return;
 
   if (x === 0 && y === 0) {
     character.idle();
@@ -26,20 +35,12 @@ const draw = (gamepad, character) => {
     character.kick();
   }
 
-  // if (gamepad.buttons[BUTTON_MAP.DOWN].pressed) {
-  //   character.jump(vy);
-  // }
+  if (gamepad.buttons[BUTTON_MAP.DOWN].pressed) {
+    character.jump();
+  }
 
   if (y > THRESHOLD) {
     character.crouch();
-  }
-
-  if (x > THRESHOLD) {
-    character.backward(x);
-  }
-
-  if (x < -THRESHOLD) {
-    character.forward(x);
   }
 };
 

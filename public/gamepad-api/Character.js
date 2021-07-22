@@ -1,10 +1,11 @@
-import { RATE } from "./common.js";
+import { RATE, JUMP_DURATION, getTranslate } from "./common.js";
 
 export class Character {
   constructor(el) {
     this.el = el;
     this.actionHandler;
-    this.isAction;
+    this.isAttack;
+    this.isJumping;
   }
 
   restart() {
@@ -16,33 +17,60 @@ export class Character {
   }
 
   punch() {
-    this.isAction = true;
+    this.isAttack = true;
     this.restart();
     this.el.classList.add("punch");
     clearTimeout(this.actionHandler);
     this.actionHandler = setTimeout(() => {
       this.el.classList.remove("punch");
-      this.isAction = false;
+      this.isAttack = false;
     }, 200);
   }
 
   kick() {
-    this.isAction = true;
+    this.isAttack = true;
     this.restart();
     this.el.classList.add("kick");
     clearTimeout(this.actionHandler);
     this.actionHandler = setTimeout(() => {
       this.el.classList.remove("kick");
-      this.isAction = false;
+      this.isAttack = false;
     }, 700);
   }
 
-  // jump(vy) {
-  //   this.el.style.transform = `translateY(${(
-  //     this.el.getBoundingClientRect().top + vy
-  //   ).toFixed(0)}px)`;
-  //   console.log("yeah");
-  // }
+  jump() {
+    this.isJumping = true;
+    this.restart();
+    this.el.classList.add("jump");
+    ease({
+      startValue: 0,
+      endValue: -200,
+      duration: JUMP_DURATION / 2,
+      easeType: linear,
+      onStep: (value) => {
+        this.el.style.transform = `translateX(${
+          getTranslate(this.el).x
+        }px) translateY(${value.toFixed(0)}px)`;
+      },
+      onComplete: () => {
+        ease({
+          startValue: -200,
+          endValue: 0,
+          duration: JUMP_DURATION / 2,
+          easeType: linear,
+          onStep: (value) => {
+            this.el.style.transform = `translateX(${
+              getTranslate(this.el).x
+            }px) translateY(${value.toFixed(0)}px)`;
+          },
+          onComplete: () => {
+            this.el.classList.remove("jump");
+            this.isJumping = false;
+          },
+        });
+      },
+    }); // TODO: cheating here
+  }
 
   crouch() {
     this.el.classList.add("crouch");
@@ -53,7 +81,7 @@ export class Character {
     this.el.style.transform = `translateX(${(
       this.el.getBoundingClientRect().left +
       x * RATE
-    ).toFixed(0)}px)`;
+    ).toFixed(0)}px) translateY(${getTranslate(this.el).y}px)`;
   }
 
   backward(x) {
@@ -61,7 +89,7 @@ export class Character {
     this.el.style.transform = `translateX(${(
       this.el.getBoundingClientRect().left +
       x * RATE
-    ).toFixed(0)}px)`;
+    ).toFixed(0)}px) translateY(${getTranslate(this.el).y}px)`;
   }
 
   idle() {

@@ -17,11 +17,10 @@
       .ryu {
         position: absolute;
         left: 0;
-        top: -220px;
-        /* 640px */
-        /* 512px */
-        width: 1280px;
-        height: 1024px;
+        top: 50%;
+        margin-top: -600px;
+        width: 1280px; /* 640px */
+        height: 1024px; /* 512px */
         background-size: 100%;
         background-repeat: no-repeat;
         background-position: 0 0;
@@ -56,6 +55,11 @@
         animation: sprite 0.7s steps(8) forwards;
       }
 
+      .ryu.jump {
+        background-image: url("./../assets/images/ryu/jump.png");
+        animation: sprite 0.5s steps(7) forwards;
+      }
+
       .restart {
         animation: none;
       }
@@ -72,27 +76,32 @@
       .bg {
         background-image: url("./../assets/images/background/airfield.gif");
         background-repeat: repeat-x;
-        background-position: 0 200px;
+        background-position: 0 50%;
         background-size: 1400px auto;
       }
     </style>
   </head>
-  <body class="overflow-hidden bg-gray-900">
+  <body class="overflow-hidden bg-gray-900 py-4">
     <div class="bg absolute top-0 left-0 w-full h-full"></div>
-    <div
-      class="absolute top-2 right-2 text-white text-right max-w-xs"
-      id="detect"
-    >
-      Gamepad not detected.
-    </div>
-    <div class="relative">
+    <div class="absolute top-0 left-0 h-screen">
       <div class="ryu"></div>
     </div>
-    <div class="container mx-auto py-4">
-      <audio controls loop>
-        <source src="./../assets/sfx/guile-theme.mp4" type="audio/mp4" />
-      </audio>
+    <div class="relative z-10">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-between items-center">
+          <audio controls loop>
+            <source src="./../assets/sfx/guile-theme.mp4" type="audio/mp4" />
+          </audio>
+          <div
+            class="text-white text-sm md:text-right max-w-xs my-4 md:my-0"
+            id="detect"
+          >
+            Gamepad not detected.
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="https://utility.simboonlong.com/utility.min.js"></script>
     <script src="main.js" type="module"></script>
   </body>
 </html>
