@@ -79,6 +79,16 @@
         background-position: 0 50%;
         background-size: 1400px auto;
       }
+
+      .foobar {
+        background-image: url("./../assets/images/common/transparent.png");
+      }
+
+      /* some complicated selector */
+      .foobar > .baz + div {
+        /* some dead styles */
+        background-image: url("./../assets/images/common/transparent.png");
+      }
     </style>
   </head>
   <body class="overflow-hidden bg-gray-900 py-4">
