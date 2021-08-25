@@ -1,4 +1,4 @@
-# Experiments
+# Labs
 
 Playground for web experiments.
 
