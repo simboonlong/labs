@@ -80,6 +80,18 @@ section:nth-child(even) {
   height: 100%;
 }
 
+blockquote {
+  text-align: left;
+  font-size: 16px;
+  max-width: 640px;
+  margin: 16px;
+}
+
+cite {
+  display: block;
+  margin: 24px 0;
+}
+
 @media screen and (min-width: 768px) {
   .present {
     font-size: 40px;
@@ -91,5 +103,9 @@ section:nth-child(even) {
 
   .sm {
     font-size: 20px;
+  }
+
+  blockquote {
+    font-size: 24px;
   }
 }
