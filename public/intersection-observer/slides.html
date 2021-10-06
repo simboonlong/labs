@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="present">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>IntersectionObserver API</title>
+    <link href="./../assets/css/present.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="center h-full">
+          <h2>IntersectionObserver API</h2>
+          <p>🔍 🪟</p>
+        </div>
+      </section>
+      <section>
+        <div class="center h-full">
+          <h2>What's this?</h2>
+          <ul>
+            <li>A way to observe if element is within target bounds</li>
+            <li>Came out since 2016 I think</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <div class="center h-full">
+          <h2>Life before this...</h2>
+          <ul>
+            <li>
+              <p>Listen to window scroll events</p>
+              <ul>
+                <li>
+                  <p>Get window scrollTop</p>
+                </li>
+                <li>
+                  <p>Loop through targets</p>
+                  <ul>
+                    <li>
+                      <p>Check if target offset top passes window scrollTop</p>
+                      <ul>
+                        <li>
+                          <p>Finally, toggle what you need</p>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <div class="center h-full">
+          <h2>Off to the experts' comment section:</h2>
+          <blockquote>
+            The web’s traditional position calculation mechanisms rely on
+            explicit queries of DOM state that are known to cause (expensive)
+            style recalculation and layout and, frequently, are a source of
+            significant performance overhead due to continuous polling for this
+            information.
+            <cite>- w3</cite>
+          </blockquote>
+          <blockquote>
+            Implementing intersection detection in the past involved event
+            handlers and loops calling methods like
+            Element.getBoundingClientRect() to build up the needed information
+            for every element affected. Since all this code runs on the main
+            thread, even one of these can cause performance problems. When a
+            site is loaded with these tests, things can get downright ugly.
+            <cite>- mdn</cite>
+          </blockquote>
+        </div>
+      </section>
+      <section>
+        <div class="center h-full">
+          <h2>Let's try 🕹️</h2>
+        </div>
+      </section>
+      <section>
+        <div class="center h-full">
+          <h2>Use cases</h2>
+          <ul class="sm">
+            <li>
+              <p>Functional</p>
+              <ul>
+                <li>Lazy load images</li>
+                <li>
+                  Position sticky, on pin "callback" = hacky, but
+                  <a
+                    href="https://css-tricks.com/how-to-detect-when-a-sticky-element-gets-pinned"
+                    target="_blank"
+                    rel="noopener noreferer"
+                    >works</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Fancy</p>
+              <ul>
+                <li>Section highlighting</li>
+                <li>Elements animate / fade in</li>
+                <li>"Infinite" scroll</li>
+              </ul>
+            </li>
+          </ul>
+
+          <p>More to discover...</p>
+        </div>
+      </section>
+      <section>
+        <div class="center h-full">
+          <h2>Thoughts</h2>
+          <ul>
+            <li>
+              Mental model is not easy to grasp at first<br />(needed visual
+              guides)
+            </li>
+            <li>Use in moderation!</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <div class="center h-full">
+          <h2>Resources</h2>
+          <ul>
+            <li>
+              <a
+                href="https://www.w3.org/TR/intersection-observer"
+                target="_blank"
+                rel="noopener noreferer"
+                >w3</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
+                target="_blank"
+                rel="noopener noreferer"
+                >MDN</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api"
+                target="_blank"
+                rel="noopener noreferer"
+                >Good read</a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
