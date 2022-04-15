@@ -2,6 +2,8 @@
 
 Playground for web API experiments. List of [experiments](https://labs.simboonlong.com).
 
+> Note that these experiments are not meant to be completed and are mainly for learning purposes.
+
 ## [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
 
 Connect with Nintendo Switch controllers to interact.

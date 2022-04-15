@@ -44,15 +44,28 @@ const root = null;
 const rootMarginExampleA = "0px 0px 0px 0px";
 const rootMarginExampleB = "-25% -25% -25% -25%";
 const rootMarginExampleC = "-20px -20px -50% -30%";
-const rootMargin = rootMarginExampleB;
 
 const options = {
   root, // TODO: figure out what other use cases
-  rootMargin,
+  rootMargin: rootMarginExampleB,
   threshold: 1, // determines at which point on element intersected gets callback
 };
 
-document.querySelectorAll(".element").forEach((element) => {
-  const observer = new IntersectionObserver(callback, options);
+document.querySelectorAll(".element").forEach((element, index) => {
+  let opt = {
+    ...options,
+  };
+  if (index === 0) {
+    opt = {
+      ...options,
+      rootMargin: rootMarginExampleB,
+    };
+  } else {
+    opt = {
+      ...options,
+      rootMargin: rootMarginExampleC,
+    };
+  } // feeling lazy, quick assign options
+  const observer = new IntersectionObserver(callback, opt);
   observer.observe(element);
 });
