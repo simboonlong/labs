@@ -4,6 +4,12 @@ Playground for web API experiments. List of [experiments](https://labs.simboonlo
 
 > Note that these experiments are not meant to be completed and are mainly for learning purposes.
 
+## [Broadcast Channel API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)
+
+Communicate between browsing contexts.
+
+Direct [link](https://labs.simboonlong.com/broadcast-channel).
+
 ## [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
 
 Connect with Nintendo Switch controllers to interact.
