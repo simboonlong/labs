@@ -33,10 +33,6 @@ if (params.has(ROOM)) {
 
   const SearchParams = searchParams();
   SearchParams.append({ key: ROOM, value: ID });
-
-  document.getElementById("another").addEventListener("click", () => {
-    open(location.href);
-  });
 }
 
 const bc = new BroadcastChannel(`channel_${ID}`);
@@ -47,4 +43,15 @@ document.getElementById("button").addEventListener("click", () => {
 });
 message.addEventListener("keyup", (e) => {
   onMessageSubmit(bc, e.keyCode);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const btnAnother = document.getElementById("another");
+    btnAnother.removeAttribute("disabled");
+
+    btnAnother.addEventListener("click", () => {
+      open(location.href);
+    });
+  }, 500);
 });
