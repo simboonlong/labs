@@ -32,7 +32,11 @@ if (params.has(ROOM)) {
   ID = getSimpleUuid();
 
   const SearchParams = searchParams();
-  SearchParams.update({ key: ROOM, value: ID });
+  SearchParams.append({ key: ROOM, value: ID });
+
+  document.getElementById("another").addEventListener("click", () => {
+    open(location.href);
+  });
 }
 
 const bc = new BroadcastChannel(`channel_${ID}`);
