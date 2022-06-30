@@ -32,7 +32,7 @@ if (params.has(ROOM)) {
   ID = getSimpleUuid();
 
   const SearchParams = searchParams();
-  SearchParams.update({ key: ROOM, value: ID });
+  SearchParams.append({ key: ROOM, value: ID });
 }
 
 const bc = new BroadcastChannel(`channel_${ID}`);
@@ -43,4 +43,15 @@ document.getElementById("button").addEventListener("click", () => {
 });
 message.addEventListener("keyup", (e) => {
   onMessageSubmit(bc, e.keyCode);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const btnAnother = document.getElementById("another");
+    btnAnother.removeAttribute("disabled");
+
+    btnAnother.addEventListener("click", () => {
+      open(location.href);
+    });
+  }, 500);
 });
